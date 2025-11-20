@@ -49,7 +49,7 @@
         
         body { overflow-x: hidden; }
         
-        /* Only hide cursor on desktop/large screens */
+        /* Only hide cursor on desktop/large screens to allow touch on mobile */
         @media (min-width: 768px) {
             body { cursor: none; }
         }
@@ -134,6 +134,7 @@
                     <i class="fas fa-moon text-xl opacity-100 absolute transition-opacity duration-300" id="theme-toggle-dark-icon"></i>
                 </button>
                 
+                <!-- Mobile Hamburger Menu Button -->
                 <button id="navbar-toggle" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 transition-transform active:scale-95">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
@@ -171,6 +172,7 @@
                     </div>
 
                     <div class="flex flex-col items-center lg:items-start">
+                        <!-- Responsive Text Sizes -->
                         <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
                             MAYANK<br>
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-neon-primary dark:to-emerald-400 hacker-text" data-value="NAGAR">NAGAR</span>
@@ -232,7 +234,7 @@
                         </div>
                         <div class="pt-4 text-xs text-gray-400">
                             > Status: <span class="text-neon-primary">Ready for Hire</span><br>
-                            > Location: <span class="text-yellow-400">Ajmer, India</span><br>
+                            > Location: <span class="text-yellow-400">Kota, Rajasthan</span><br>
                             > CGPA: <span class="text-white">7.7</span>
                         </div>
                         <div class="absolute bottom-4 left-6 w-full">
@@ -245,7 +247,85 @@
         </div>
     </section>
 
-    <!-- Skills Section with 3D Tilt Cards -->
+    <!-- About Section (NEW) -->
+    <section id="about" class="py-20 relative z-10 dark:bg-black/20 bg-gray-50/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 text-center md:text-left">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 dark:text-white text-gray-900 hacker-text" data-value="SYSTEM_STATUS">SYSTEM_STATUS</h2>
+                <div class="h-1 w-20 bg-neon-primary mx-auto md:mx-0"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Biography & Personal Info -->
+                <div class="space-y-6">
+                    <div class="tech-card p-8 rounded-2xl" data-tilt data-tilt-max="5">
+                        <h3 class="text-2xl font-bold mb-4 dark:text-white text-gray-900 flex items-center gap-2">
+                            <i class="fas fa-user-astronaut text-neon-primary"></i> Profile
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                            I am a <span class="text-neon-primary font-mono">Full Stack Developer</span> and final-year Computer Science Engineer. Currently serving as the <span class="text-neon-primary font-mono">Multimedia Head of the Cyber Security Club</span> at Government Engineering College, Ajmer. I bridge the gap between complex backend logic and intuitive frontend design.
+                        </p>
+                        
+                        <div class="space-y-3 font-mono text-sm">
+                            <div class="flex items-center gap-3">
+                                <span class="text-gray-400 w-24">Location:</span>
+                                <span class="dark:text-white text-gray-900">Kota, Rajasthan</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-gray-400 w-24">Email:</span>
+                                <a href="mailto:mayanknagar6376@gmail.com" class="dark:text-white text-gray-900 hover:text-neon-primary transition-colors">mayanknagar6376@gmail.com</a>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-gray-400 w-24">Phone:</span>
+                                <a href="tel:+916376721801" class="dark:text-white text-gray-900 hover:text-neon-primary transition-colors">+91 6376721801</a>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-gray-400 w-24">Status:</span>
+                                <span class="text-green-400 flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span> Open for Work
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="space-y-6">
+                     <div class="tech-card p-8 rounded-2xl h-full" data-tilt data-tilt-max="5">
+                        <h3 class="text-2xl font-bold mb-6 dark:text-white text-gray-900 flex items-center gap-2">
+                            <i class="fas fa-graduation-cap text-blue-500"></i> Education
+                        </h3>
+                        
+                        <div class="relative pl-6 border-l-2 border-gray-700 space-y-8">
+                            <!-- Degree 1 -->
+                            <div class="relative">
+                                <div class="absolute -left-[29px] top-1 w-4 h-4 rounded-full bg-neon-primary shadow-[0_0_10px_#00ff9d]"></div>
+                                <h4 class="text-lg font-bold dark:text-white text-gray-900">B.Tech in Computer Science</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">Govt. Engineering College, Ajmer</p>
+                                <div class="flex justify-between items-center mt-2">
+                                    <span class="text-xs font-mono bg-blue-500/10 text-blue-500 px-2 py-1 rounded">2022 - Present</span>
+                                    <span class="text-sm font-bold dark:text-white">CGPA: 7.7</span>
+                                </div>
+                            </div>
+
+                            <!-- Degree 2 -->
+                            <div class="relative">
+                                <div class="absolute -left-[29px] top-1 w-4 h-4 rounded-full bg-blue-500 shadow-[0_0_10px_#3b82f6]"></div>
+                                <h4 class="text-lg font-bold dark:text-white text-gray-900">Class XII (RBSE)</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">MB Vidhya Bhawan, Kota</p>
+                                <div class="flex justify-between items-center mt-2">
+                                    <span class="text-xs font-mono bg-blue-500/10 text-blue-500 px-2 py-1 rounded">2021</span>
+                                    <span class="text-sm font-bold dark:text-white">95.20%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
     <section id="skills" class="py-16 md:py-20 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12 md:mb-16 text-center md:text-left">
@@ -408,6 +488,7 @@
                             </div>
                         </div>
                         <p class="text-sm text-gray-400 mb-4">Cybersecurity tool for automated sensitive data redaction using NLP & Regex.</p>
+                        <!-- Changed Color to Yellow as requested -->
                         <a href="#" class="text-yellow-500 text-sm font-bold hover:underline">VIEW SOURCE -></a>
                     </div>
                 </div>
