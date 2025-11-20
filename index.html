@@ -46,7 +46,13 @@
 
     <style>
         :root { --cursor-size: 20px; }
-        body { overflow-x: hidden; cursor: none; }
+        
+        body { overflow-x: hidden; }
+        
+        /* Only hide cursor on desktop/large screens */
+        @media (min-width: 768px) {
+            body { cursor: none; }
+        }
         
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
@@ -128,75 +134,74 @@
                     <i class="fas fa-moon text-xl opacity-100 absolute transition-opacity duration-300" id="theme-toggle-dark-icon"></i>
                 </button>
                 
-                <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700" aria-controls="navbar-sticky" aria-expanded="false">
+                <button id="navbar-toggle" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 transition-transform active:scale-95">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
             
-            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-                <ul class="flex flex-col p-4 md:p-0 mt-4 font-mono text-sm font-bold border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 bg-transparent">
-                    <li><a href="#about" class="block py-2 px-3 rounded md:p-0 dark:text-gray-300 dark:hover:text-neon-primary text-gray-700 hover:text-neon-secondary transition-colors magnetic-trigger">01. // ABOUT</a></li>
-                    <li><a href="#skills" class="block py-2 px-3 rounded md:p-0 dark:text-gray-300 dark:hover:text-neon-primary text-gray-700 hover:text-neon-secondary transition-colors magnetic-trigger">02. // SKILLS</a></li>
-                    <li><a href="#experience" class="block py-2 px-3 rounded md:p-0 dark:text-gray-300 dark:hover:text-neon-primary text-gray-700 hover:text-neon-secondary transition-colors magnetic-trigger">03. // EXP</a></li>
-                    <li><a href="#projects" class="block py-2 px-3 rounded md:p-0 dark:text-gray-300 dark:hover:text-neon-primary text-gray-700 hover:text-neon-secondary transition-colors magnetic-trigger">04. // WORK</a></li>
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 transition-all duration-300 ease-in-out" id="navbar-sticky">
+                <ul class="flex flex-col p-4 md:p-0 mt-4 font-mono text-sm font-bold border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 bg-gray-50 dark:bg-gray-800 md:bg-transparent md:dark:bg-transparent border-gray-100 dark:border-gray-700 md:border-0">
+                    <li><a href="#about" class="block py-2 px-3 rounded md:p-0 dark:text-gray-300 dark:hover:text-neon-primary text-gray-700 hover:text-neon-secondary transition-colors magnetic-trigger hover:bg-gray-100 dark:hover:bg-gray-700 md:hover:bg-transparent md:dark:hover:bg-transparent">01. // ABOUT</a></li>
+                    <li><a href="#skills" class="block py-2 px-3 rounded md:p-0 dark:text-gray-300 dark:hover:text-neon-primary text-gray-700 hover:text-neon-secondary transition-colors magnetic-trigger hover:bg-gray-100 dark:hover:bg-gray-700 md:hover:bg-transparent md:dark:hover:bg-transparent">02. // SKILLS</a></li>
+                    <li><a href="#experience" class="block py-2 px-3 rounded md:p-0 dark:text-gray-300 dark:hover:text-neon-primary text-gray-700 hover:text-neon-secondary transition-colors magnetic-trigger hover:bg-gray-100 dark:hover:bg-gray-700 md:hover:bg-transparent md:dark:hover:bg-transparent">03. // EXP</a></li>
+                    <li><a href="#projects" class="block py-2 px-3 rounded md:p-0 dark:text-gray-300 dark:hover:text-neon-primary text-gray-700 hover:text-neon-secondary transition-colors magnetic-trigger hover:bg-gray-100 dark:hover:bg-gray-700 md:hover:bg-transparent md:dark:hover:bg-transparent">04. // WORK</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center relative pt-20" id="home">
+    <section class="min-h-screen flex items-center justify-center relative pt-24 md:pt-20 pb-12" id="home">
         <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             
             <!-- Content -->
-            <div class="space-y-6 order-2 lg:order-1 z-10">
+            <div class="space-y-6 order-2 lg:order-1 z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-mono mb-4
                     dark:border-neon-primary dark:text-neon-primary dark:bg-neon-primary/10
                     border-blue-600 text-blue-600 bg-blue-50">
                     <span class="w-2 h-2 rounded-full bg-current animate-pulse"></span> System Online
                 </div>
                 
-                <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                <div class="flex flex-col md:flex-row items-center lg:items-start gap-6 md:gap-8">
                     <!-- Profile Image with Glow -->
                     <div class="profile-container w-32 h-32 md:w-40 md:h-40 flex-shrink-0 group magnetic-trigger">
                         <div class="w-full h-full rounded-full overflow-hidden border-2 border-white/20 bg-gray-900 relative z-10">
-                            <!-- Use the uploaded filename here -->
-                             <img src="mayank.png" alt="Mayank Nagar" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=Mayank'">
+                             <img src="images/mayank.png" alt="Mayank Nagar" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=Mayank'">
                         </div>
                     </div>
 
-                    <div class="text-center md:text-left">
-                        <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+                    <div class="flex flex-col items-center lg:items-start">
+                        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
                             MAYANK<br>
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-neon-primary dark:to-emerald-400 hacker-text" data-value="NAGAR">NAGAR</span>
                         </h1>
                         
                         <div class="h-8 mt-2">
-                            <p class="text-xl md:text-2xl font-mono dark:text-gray-300 text-gray-700">
+                            <p class="text-lg md:text-2xl font-mono dark:text-gray-300 text-gray-700">
                                 > <span id="typing-text" class="border-r-2 border-current pr-1"></span>
                             </p>
                         </div>
                     </div>
                 </div>
                 
-                <p class="text-lg dark:text-gray-400 text-gray-600 max-w-lg leading-relaxed text-center md:text-left">
+                <p class="text-base md:text-lg dark:text-gray-400 text-gray-600 max-w-lg leading-relaxed">
                     Engineering scalable web solutions with MERN stack and Artificial Intelligence. Focused on performance, security, and intuitive UX.
                 </p>
                 
-                <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-6">
+                <div class="flex flex-wrap justify-center lg:justify-start gap-4 pt-6">
                     <!-- Download Resume Button -->
-                    <a href="Resume.pdf" download="Mayank_Nagar_Resume.pdf" class="magnetic-trigger relative px-8 py-3 rounded bg-gray-900 dark:bg-neon-primary text-white dark:text-black font-bold overflow-hidden group flex items-center gap-2">
+                    <a href="Resume.pdf" download="Mayank_Nagar_Resume.pdf" class="magnetic-trigger relative px-6 py-3 md:px-8 rounded bg-gray-900 dark:bg-neon-primary text-white dark:text-black font-bold overflow-hidden group flex items-center gap-2 text-sm md:text-base">
                         <i class="fas fa-download"></i>
                         <span class="relative z-10 group-hover:text-neon-primary dark:group-hover:text-white transition-colors">DOWNLOAD CV</span>
                         <div class="absolute inset-0 h-full w-full scale-0 rounded transition-all duration-300 group-hover:scale-100 group-hover:bg-gray-800 dark:group-hover:bg-black"></div>
                     </a>
                     
-                    <a href="#projects" class="magnetic-trigger px-8 py-3 rounded border-2 border-gray-900 dark:border-neon-primary text-gray-900 dark:text-neon-primary font-bold hover:bg-gray-100 dark:hover:bg-neon-primary/10 transition-colors">
+                    <a href="#projects" class="magnetic-trigger px-6 py-3 md:px-8 rounded border-2 border-gray-900 dark:border-neon-primary text-gray-900 dark:text-neon-primary font-bold hover:bg-gray-100 dark:hover:bg-neon-primary/10 transition-colors text-sm md:text-base">
                         VIEW_WORK
                     </a>
                 </div>
 
-                <div class="flex justify-center md:justify-start gap-6 pt-6 text-2xl">
+                <div class="flex justify-center lg:justify-start gap-6 pt-6 text-2xl">
                     <a href="https://github.com/mayank-nagar-04" target="_blank" class="magnetic-trigger hover:text-neon-primary transition-colors"><i class="fab fa-github"></i></a>
                     <a href="https://linkedin.com/in/mayanknagarr" target="_blank" class="magnetic-trigger hover:text-blue-500 transition-colors"><i class="fab fa-linkedin"></i></a>
                     <a href="mailto:mayanknagar6376@gmail.com" class="magnetic-trigger hover:text-red-500 transition-colors"><i class="fas fa-envelope"></i></a>
@@ -204,15 +209,15 @@
             </div>
 
             <!-- Terminal / Visual -->
-            <div class="order-1 lg:order-2 flex justify-center relative z-10 perspective-1000">
-                <div class="terminal-window w-full max-w-md bg-[#1e1e1e] dark:bg-black text-gray-300 text-sm shadow-2xl transform transition-transform duration-500 hover:rotate-y-6 hover:rotate-x-6" id="hero-terminal">
+            <div class="order-1 lg:order-2 flex justify-center relative z-10 perspective-1000 w-full">
+                <div class="terminal-window w-full max-w-md bg-[#1e1e1e] dark:bg-black text-gray-300 text-sm shadow-2xl transform transition-transform duration-500 hover:rotate-y-6 hover:rotate-x-6 mx-auto" id="hero-terminal">
                     <div class="terminal-header">
                         <div class="terminal-dot bg-red"></div>
                         <div class="terminal-dot bg-yellow"></div>
                         <div class="terminal-dot bg-green"></div>
                         <div class="ml-4 text-xs opacity-50">mayank@dev:~/portfolio</div>
                     </div>
-                    <div class="p-6 space-y-2 h-80 overflow-hidden relative">
+                    <div class="p-4 md:p-6 space-y-2 h-64 md:h-80 overflow-hidden relative text-xs md:text-sm">
                         <div class="flex">
                             <span class="text-neon-primary mr-2">➜</span>
                             <span class="text-blue-400 mr-2">~</span>
@@ -241,21 +246,21 @@
     </section>
 
     <!-- Skills Section with 3D Tilt Cards -->
-    <section id="skills" class="py-20 relative z-10">
+    <section id="skills" class="py-16 md:py-20 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-16">
+            <div class="mb-12 md:mb-16 text-center md:text-left">
                 <h2 class="text-3xl md:text-5xl font-bold mb-4 dark:text-white text-gray-900 hacker-text" data-value="TECHNICAL_ARSENAL">TECHNICAL_ARSENAL</h2>
-                <div class="h-1 w-20 bg-neon-primary"></div>
+                <div class="h-1 w-20 bg-neon-primary mx-auto md:mx-0"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Frontend -->
-                <div class="tech-card p-8 rounded-2xl group" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                <div class="tech-card p-6 md:p-8 rounded-2xl group" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
                     <div class="flex justify-between items-start mb-6">
                         <i class="fab fa-react text-4xl text-blue-400 group-hover:animate-spin-slow"></i>
                         <span class="font-mono text-xs border border-gray-500 px-2 py-1 rounded">UI/UX</span>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4 dark:text-white">Frontend</h3>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 dark:text-white">Frontend</h3>
                     <div class="space-y-3 font-mono text-sm">
                         <div class="flex justify-between"><span>React.js</span><span class="text-neon-primary">90%</span></div>
                         <div class="w-full bg-gray-700 h-1 rounded-full"><div class="bg-blue-500 h-1 rounded-full" style="width: 90%"></div></div>
@@ -269,12 +274,12 @@
                 </div>
 
                 <!-- Backend -->
-                <div class="tech-card p-8 rounded-2xl group" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                <div class="tech-card p-6 md:p-8 rounded-2xl group" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
                     <div class="flex justify-between items-start mb-6">
                         <i class="fas fa-server text-4xl text-green-500"></i>
                         <span class="font-mono text-xs border border-gray-500 px-2 py-1 rounded">SERVER</span>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4 dark:text-white">Backend</h3>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 dark:text-white">Backend</h3>
                     <div class="space-y-3 font-mono text-sm">
                         <div class="flex justify-between"><span>Node.js</span><span class="text-neon-primary">85%</span></div>
                         <div class="w-full bg-gray-700 h-1 rounded-full"><div class="bg-green-500 h-1 rounded-full" style="width: 85%"></div></div>
@@ -288,12 +293,12 @@
                 </div>
 
                 <!-- AI & Tools -->
-                <div class="tech-card p-8 rounded-2xl group" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                <div class="tech-card p-6 md:p-8 rounded-2xl group" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
                     <div class="flex justify-between items-start mb-6">
                         <i class="fas fa-brain text-4xl text-purple-500"></i>
                         <span class="font-mono text-xs border border-gray-500 px-2 py-1 rounded">INTELLIGENCE</span>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4 dark:text-white">AI & Tools</h3>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 dark:text-white">AI & Tools</h3>
                     <div class="flex flex-wrap gap-2">
                         <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm font-mono rounded border border-gray-700">Python</span>
                         <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm font-mono rounded border border-gray-700">TensorFlow</span>
@@ -309,30 +314,30 @@
     <!-- Experience Section -->
     <section id="experience" class="py-20 dark:bg-black/30 bg-gray-100/50 backdrop-blur-sm relative z-10">
         <div class="max-w-6xl mx-auto px-4">
-            <div class="mb-16 text-right">
+            <div class="mb-16 text-center md:text-right">
                 <h2 class="text-3xl md:text-5xl font-bold mb-4 dark:text-white text-gray-900 hacker-text" data-value="EXPERIENCE_LOGS">EXPERIENCE_LOGS</h2>
-                <div class="h-1 w-20 bg-neon-primary ml-auto"></div>
+                <div class="h-1 w-20 bg-neon-primary mx-auto md:ml-auto md:mr-0"></div>
             </div>
 
             <div class="relative space-y-12">
                 <!-- Vertical Line -->
-                <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gray-700 transform md:-translate-x-1/2"></div>
+                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gray-700 transform md:-translate-x-1/2"></div>
 
                 <!-- Exp 1 -->
-                <div class="relative flex flex-col md:flex-row items-center justify-between group">
-                    <div class="w-full md:w-5/12 order-2 md:order-1 p-6 tech-card rounded-xl hover:border-neon-primary transition-colors text-right md:text-right">
+                <div class="relative flex flex-col md:flex-row items-center justify-between group pl-12 md:pl-0">
+                    <div class="w-full md:w-5/12 order-2 md:order-1 p-6 tech-card rounded-xl hover:border-neon-primary transition-colors text-left md:text-right">
                         <h3 class="text-xl font-bold dark:text-white">Frontend Developer Intern</h3>
                         <p class="text-neon-primary font-mono text-sm">Infotach Solutions | 2025</p>
                         <p class="text-gray-400 text-sm mt-2">Optimized Blue Serve Connection Platform. Delivered pixel-perfect UI and enhanced cross-browser compatibility.</p>
                     </div>
-                    <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-neon-primary rounded-full transform -translate-x-1/2 md:-translate-x-1/2 z-10 shadow-[0_0_10px_#00ff9d]"></div>
+                    <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-neon-primary rounded-full transform -translate-x-1/2 md:-translate-x-1/2 z-10 shadow-[0_0_10px_#00ff9d] top-0 md:top-auto"></div>
                     <div class="w-full md:w-5/12 order-1 md:order-2"></div>
                 </div>
 
                 <!-- Exp 2 -->
-                <div class="relative flex flex-col md:flex-row items-center justify-between group">
-                    <div class="w-full md:w-5/12 order-1 md:order-1"></div>
-                    <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-blue-500 rounded-full transform -translate-x-1/2 md:-translate-x-1/2 z-10 shadow-[0_0_10px_#3b82f6]"></div>
+                <div class="relative flex flex-col md:flex-row items-center justify-between group pl-12 md:pl-0">
+                    <div class="w-full md:w-5/12 order-1 md:order-1 hidden md:block"></div>
+                    <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-blue-500 rounded-full transform -translate-x-1/2 md:-translate-x-1/2 z-10 shadow-[0_0_10px_#3b82f6] top-0 md:top-auto"></div>
                     <div class="w-full md:w-5/12 order-2 md:order-2 p-6 tech-card rounded-xl hover:border-blue-500 transition-colors">
                         <h3 class="text-xl font-bold dark:text-white">Web Dev Intern</h3>
                         <p class="text-blue-400 font-mono text-sm">IBM | 2025</p>
@@ -341,13 +346,13 @@
                 </div>
 
                 <!-- Exp 3 -->
-                <div class="relative flex flex-col md:flex-row items-center justify-between group">
-                    <div class="w-full md:w-5/12 order-2 md:order-1 p-6 tech-card rounded-xl hover:border-purple-500 transition-colors text-right md:text-right">
+                <div class="relative flex flex-col md:flex-row items-center justify-between group pl-12 md:pl-0">
+                    <div class="w-full md:w-5/12 order-2 md:order-1 p-6 tech-card rounded-xl hover:border-purple-500 transition-colors text-left md:text-right">
                         <h3 class="text-xl font-bold dark:text-white">AI/ML Intern</h3>
                         <p class="text-purple-400 font-mono text-sm">IBM Internship | 2024</p>
                         <p class="text-gray-400 text-sm mt-2">Developed predictive analytics models and chatbots using Python & ML frameworks.</p>
                     </div>
-                    <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-purple-500 rounded-full transform -translate-x-1/2 md:-translate-x-1/2 z-10 shadow-[0_0_10px_#a855f7]"></div>
+                    <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-purple-500 rounded-full transform -translate-x-1/2 md:-translate-x-1/2 z-10 shadow-[0_0_10px_#a855f7] top-0 md:top-auto"></div>
                     <div class="w-full md:w-5/12 order-1 md:order-2"></div>
                 </div>
             </div>
@@ -357,15 +362,15 @@
     <!-- Projects Section -->
     <section id="projects" class="py-20 relative z-10">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="mb-16">
+            <div class="mb-16 text-center md:text-left">
                 <h2 class="text-3xl md:text-5xl font-bold mb-4 dark:text-white text-gray-900 hacker-text" data-value="DEPLOYED_SYSTEMS">DEPLOYED_SYSTEMS</h2>
-                <div class="h-1 w-20 bg-neon-primary"></div>
+                <div class="h-1 w-20 bg-neon-primary mx-auto md:mx-0"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
                 <!-- Project 1 -->
-                <div class="tech-card rounded-xl overflow-hidden group cursor-none" data-tilt data-tilt-max="5">
+                <div class="tech-card rounded-xl overflow-hidden group cursor-pointer md:cursor-none" data-tilt data-tilt-max="5">
                     <div class="h-48 bg-gray-800 relative overflow-hidden">
                          <!-- PROJECT IMAGE 1: ticket-saathi.jpg -->
                          <img src="images/ticket-saathi.jpg" alt="Ticket Saathi" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" onerror="this.src='https://placehold.co/600x400/1e1e1e/00ff9d?text=Ticket+System'">
@@ -387,13 +392,13 @@
                 </div>
 
                 <!-- Project 2 -->
-                <div class="tech-card rounded-xl overflow-hidden group cursor-none" data-tilt data-tilt-max="5">
+                <div class="tech-card rounded-xl overflow-hidden group cursor-pointer md:cursor-none" data-tilt data-tilt-max="5">
                     <div class="h-48 bg-gray-800 relative overflow-hidden">
                          <!-- PROJECT IMAGE 2: redaction.jpg -->
                          <img src="images/redaction.jpg" alt="Redaction Tool" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" onerror="this.src='https://placehold.co/600x400/1e1e1e/ff5f56?text=Cyber+Security'">
                          
                          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                         <div class="absolute bottom-0 left-0 w-full h-1 bg-red-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+                         <div class="absolute bottom-0 left-0 w-full h-1 bg-yellow-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
                     </div>
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-2">
@@ -403,12 +408,12 @@
                             </div>
                         </div>
                         <p class="text-sm text-gray-400 mb-4">Cybersecurity tool for automated sensitive data redaction using NLP & Regex.</p>
-                        <a href="#" class="text-red-500 text-sm font-bold hover:underline">VIEW SOURCE -></a>
+                        <a href="#" class="text-yellow-500 text-sm font-bold hover:underline">VIEW SOURCE -></a>
                     </div>
                 </div>
 
                 <!-- Project 3 -->
-                <div class="tech-card rounded-xl overflow-hidden group cursor-none" data-tilt data-tilt-max="5">
+                <div class="tech-card rounded-xl overflow-hidden group cursor-pointer md:cursor-none" data-tilt data-tilt-max="5">
                     <div class="h-48 bg-gray-800 relative overflow-hidden">
                          <!-- PROJECT IMAGE 3: mindful.jpg -->
                          <img src="images/mindful.jpg" alt="Mindful AI" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" onerror="this.src='https://placehold.co/600x400/1e1e1e/bd00ff?text=AI+Wellness'">
@@ -441,6 +446,24 @@
 
     <!-- Javascript Logic -->
     <script>
+        // --- MOBILE NAVBAR LOGIC ---
+        const navbarToggleBtn = document.getElementById('navbar-toggle');
+        const navbarSticky = document.getElementById('navbar-sticky');
+        
+        navbarToggleBtn.addEventListener('click', () => {
+            navbarSticky.classList.toggle('hidden');
+        });
+
+        // Close navbar when a link is clicked
+        document.querySelectorAll('#navbar-sticky a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (!navbarSticky.classList.contains('hidden') && window.innerWidth < 768) {
+                    navbarSticky.classList.add('hidden');
+                }
+            });
+        });
+
+
         // --- CANVAS PARTICLE SYSTEM (The "Technical" Background) ---
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
@@ -582,34 +605,40 @@
             };
         });
 
-        // --- CUSTOM CURSOR LOGIC ---
-        const cursorOuter = document.querySelector('.cursor-outer');
-        const cursorInner = document.querySelector('.cursor-inner');
-        
-        window.addEventListener('mousemove', (e) => {
-            cursorInner.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+        // --- CUSTOM CURSOR LOGIC (Desktop Only) ---
+        if (window.matchMedia("(min-width: 768px)").matches) {
+            const cursorOuter = document.querySelector('.cursor-outer');
+            const cursorInner = document.querySelector('.cursor-inner');
             
-            // Slight delay for outer ring
-            cursorOuter.animate({
-                transform: `translate3d(${e.clientX}px, ${e.clientY}px, 0)`
-            }, { duration: 800, fill: "forwards" });
-        });
+            window.addEventListener('mousemove', (e) => {
+                cursorInner.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+                
+                // Slight delay for outer ring
+                cursorOuter.animate({
+                    transform: `translate3d(${e.clientX}px, ${e.clientY}px, 0)`
+                }, { duration: 800, fill: "forwards" });
+            });
+        }
 
         // Magnetic Buttons
         const magneticTriggers = document.querySelectorAll('.magnetic-trigger');
         magneticTriggers.forEach(trigger => {
             trigger.addEventListener('mouseenter', () => {
-                document.body.classList.add('hovering');
+                if (window.innerWidth >= 768) {
+                    document.body.classList.add('hovering');
+                }
             });
             trigger.addEventListener('mouseleave', () => {
                 document.body.classList.remove('hovering');
                 trigger.style.transform = '';
             });
             trigger.addEventListener('mousemove', (e) => {
-                const rect = trigger.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                trigger.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+                if (window.innerWidth >= 768) {
+                    const rect = trigger.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    trigger.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+                }
             });
         });
 
@@ -618,17 +647,19 @@
         const tiltCards = document.querySelectorAll('[data-tilt]');
         tiltCards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = ((y - centerY) / centerY) * -10; // Max tilt 10deg
-                const rotateY = ((x - centerX) / centerX) * 10;
+                if (window.innerWidth >= 768) {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -10; // Max tilt 10deg
+                    const rotateY = ((x - centerX) / centerX) * 10;
 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                }
             });
 
             card.addEventListener('mouseleave', () => {
