@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayank Nagar | Full Stack Developer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        neon: {
+                            primary: '#00ff9d',
+                            secondary: '#00b8ff',
+                            purple: '#bd00ff',
+                            dark: '#050505',
+                            card: 'rgba(20, 20, 20, 0.7)'
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root { --cursor-size: 20px; }
+        body { overflow-x: hidden; cursor: none; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00ff9d; }
+
+        /* Particle Canvas */
+        #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+
+        /* Dynamic Backgrounds */
+        html.dark body { background-color: #050505; color: #e0e0e0; }
+        html:not(.dark) body { background-color: #f0f2f5; color: #1a1a1a; }
+
+        /* Custom Cursor */
+        .cursor-outer { position: fixed; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid rgba(0, 255, 157, 0.5); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, background-color 0.3s; mix-blend-mode: difference; }
+        .cursor-inner { position: fixed; top: 0; left: 0; width: 8px; height: 8px; background-color: #00ff9d; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s; }
+        body.hovering .cursor-outer { width: 60px; height: 60px; background-color: rgba(0, 255, 157, 0.1); border-color: #00ff9d; }
+
+        /* Glassmorphism & Tilt Cards */
+        .tech-card { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.1s, box-shadow 0.3s; transform-style: preserve-3d; }
+        html.dark .tech-card { background: rgba(20, 20, 20, 0.6); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); }
+        html:not(.dark) .tech-card { background: rgba(255, 255, 255, 0.8); border-color: rgba(0, 0, 0, 0.05); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); }
+
+        .hacker-text { font-family: 'JetBrains Mono', monospace; position: relative; }
+
+        .scanlines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1)); background-size: 100% 4px; z-index: 9998; pointer-events: none; opacity: 0; transition: opacity 0.5s; }
+        html.dark .scanlines { opacity: 0.3; }
+
+        .terminal-window { border-radius: 8px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); font-family: 'JetBrains Mono', monospace; }
+        .terminal-header { background: #2d2d2d; padding: 10px 15px; display: flex; gap: 8px; }
+        .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .bg-red { background: #ff5f56; }
+        .bg-yellow { background: #ffbd2e; }
+        .bg-green { background: #27c93f; }
+        
+        .magnetic-btn { transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        
+        /* Image Styles */
+        .profile-hex {
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-neon-primary selection:text-black">
+
+    <canvas id="particle-canvas"></canvas>
+    <div class="scanlines"></div>
+    <div class="cursor-outer hidden md:block"></div>
+    <div class="cursor-inner hidden md:block"></div>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 top-0 start-0 tech-card border-b-0 rounded-b-xl transition-all duration-300" id="navbar">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="#" class="flex items-center space-x-2 group magnetic-trigger">
+                <span class="text-2xl font-bold font-mono dark:text-white text-gray-900">&lt;M/N&gt;</span>
+            </a>
+            
+            <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                <button id="theme-toggle" type="button" class="magnetic-trigger relative inline-flex items-center justify-center p-2 w-12 h-12 text-sm font-medium text-center rounded-full hover:bg-gray-200 focus:outline-none dark:text-white dark:hover:bg-white/10 transition-all duration-300">
+                    <i class="fas fa-sun text-xl opacity-0 absolute transition-opacity duration-300 transform rotate-90 scale-50" id="theme-toggle-light-icon"></i>
+                    <i class="fas fa-moon text-xl opacity-100 absolute transition-opacity duration-300" id="theme-toggle-dark-icon"></i>
+                </button>
+                
+                <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700" aria-controls="navbar-sticky" aria-expanded="false">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+                <ul class="flex flex-col p-4 md:p-0 mt-4 font-mono text-sm font-bold border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 bg-transparent">
+                    <li><a href="#about" class="block py-2 px-3 rounded md:p-0 dark:text-gray-300 dark:hover:text-neon-primary text-gray-700 hover:text-neon-secondary transition-colors magnetic-trigger">01. // ABOUT</a></li>
+                    <li><a href="#skills" class="block py-2 px-3 rounded md:p-0 dark:text-gray-300 dark:hover:text-neon-primary text-gray-700 hover:text-neon-secondary transition-colors magnetic-trigger">02. // SKILLS</a></li>
+                    <li><a href="#experience" class="block py-2 px-3 rounded md:p-0 dark:text-gray-300 dark:hover:text-neon-primary text-gray-700 hover:text-neon-secondary transition-colors magnetic-trigger">03. // EXP</a></li>
+                    <li><a href="#projects" class="block py-2 px-3 rounded md:p-0 dark:text-gray-300 dark:hover:text-neon-primary text-gray-700 hover:text-neon-secondary transition-colors magnetic-trigger">04. // WORK</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative pt-20" id="home">
+        <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Content -->
+            <div class="space-y-6 order-2 lg:order-1 z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-mono mb-4
+                    dark:border-neon-primary dark:text-neon-primary dark:bg-neon-primary/10
+                    border-blue-600 text-blue-600 bg-blue-50">
+                    <span class="w-2 h-2 rounded-full bg-current animate-pulse"></span> System Online
+                </div>
+                
+                <div class="flex items-center gap-6">
+                    <!-- Profile Image Placeholder -->
+                    <div class="w-24 h-24 md:w-32 md:h-32 flex-shrink-0 relative profile-hex overflow-hidden border-2 border-neon-primary hidden md:block">
+                         <img src="mayank.png" alt="Mayank" class="w-full h-full object-cover" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=Mayank'">
+                         <div class="absolute inset-0 bg-neon-primary/20 mix-blend-overlay"></div>
+                    </div>
+
+                    <div>
+                        <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+                            MAYANK<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-neon-primary dark:to-emerald-400 hacker-text" data-value="NAGAR">NAGAR</span>
+                        </h1>
+                        
+                        <div class="h-8 mt-2">
+                            <p class="text-xl md:text-2xl font-mono dark:text-gray-300 text-gray-700">
+                                > <span id="typing-text" class="border-r-2 border-current pr-1"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="text-lg dark:text-gray-400 text-gray-600 max-w-lg leading-relaxed">
+                    Engineering scalable web solutions with MERN stack and Artificial Intelligence. Focused on performance, security, and intuitive UX.
+                </p>
+                
+                <div class="flex flex-wrap gap-4 pt-6">
+                    <!-- Download Resume Button -->
+                    <a href="resume.pdf" download="Mayank_Nagar_Resume.pdf" class="magnetic-trigger relative px-8 py-3 rounded bg-gray-900 dark:bg-neon-primary text-white dark:text-black font-bold overflow-hidden group flex items-center gap-2">
+                        <i class="fas fa-download"></i>
+                        <span class="relative z-10 group-hover:text-neon-primary dark:group-hover:text-white transition-colors">DOWNLOAD CV</span>
+                        <div class="absolute inset-0 h-full w-full scale-0 rounded transition-all duration-300 group-hover:scale-100 group-hover:bg-gray-800 dark:group-hover:bg-black"></div>
+                    </a>
+                    
+                    <a href="#projects" class="magnetic-trigger px-8 py-3 rounded border-2 border-gray-900 dark:border-neon-primary text-gray-900 dark:text-neon-primary font-bold hover:bg-gray-100 dark:hover:bg-neon-primary/10 transition-colors">
+                        VIEW_WORK
+                    </a>
+                </div>
+
+                <div class="flex gap-6 pt-6 text-2xl">
+                    <a href="https://github.com/mayank-nagar-04" target="_blank" class="magnetic-trigger hover:text-neon-primary transition-colors"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/mayanknagarr" target="_blank" class="magnetic-trigger hover:text-blue-500 transition-colors"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:mayanknagar6376@gmail.com" class="magnetic-trigger hover:text-red-500 transition-colors"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <!-- Terminal / Visual -->
+            <div class="order-1 lg:order-2 flex justify-center relative z-10 perspective-1000">
+                <div class="terminal-window w-full max-w-md bg-[#1e1e1e] dark:bg-black text-gray-300 text-sm shadow-2xl transform transition-transform duration-500 hover:rotate-y-6 hover:rotate-x-6" id="hero-terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot bg-red"></div>
+                        <div class="terminal-dot bg-yellow"></div>
+                        <div class="terminal-dot bg-green"></div>
+                        <div class="ml-4 text-xs opacity-50">mayank@dev:~/portfolio</div>
+                    </div>
+                    <div class="p-6 space-y-2 h-80 overflow-hidden relative">
+                        <div class="flex">
+                            <span class="text-neon-primary mr-2">➜</span>
+                            <span class="text-blue-400 mr-2">~</span>
+                            <span class="typing-simulation">npm start dev-server</span>
+                        </div>
+                        <div class="text-gray-500 text-xs pt-2 animate-pulse">Installing dependencies...</div>
+                        <div class="pt-2">
+                            <span class="text-green-500">✔</span> Core: <span class="text-white">HTML5, CSS3, JS</span><br>
+                            <span class="text-green-500">✔</span> Frameworks: <span class="text-white">React, Tailwind, Node</span><br>
+                            <span class="text-green-500">✔</span> AI Module: <span class="text-white">Python, TensorFlow</span><br>
+                            <span class="text-green-500">✔</span> DB: <span class="text-white">MongoDB, SQL</span>
+                        </div>
+                        <div class="pt-4 text-xs text-gray-400">
+                            > Status: <span class="text-neon-primary">Ready for Hire</span><br>
+                            > Location: <span class="text-yellow-400">Ajmer, India</span><br>
+                            > CGPA: <span class="text-white">7.7</span>
+                        </div>
+                        <div class="absolute bottom-4 left-6 w-full">
+                            <span class="text-neon-primary mr-2">➜</span>
+                            <span class="animate-ping">_</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section with 3D Tilt Cards -->
+    <section id="skills" class="py-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 dark:text-white text-gray-900 hacker-text" data-value="TECHNICAL_ARSENAL">TECHNICAL_ARSENAL</h2>
+                <div class="h-1 w-20 bg-neon-primary"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Frontend -->
+                <div class="tech-card p-8 rounded-2xl group" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                    <div class="flex justify-between items-start mb-6">
+                        <i class="fab fa-react text-4xl text-blue-400 group-hover:animate-spin-slow"></i>
+                        <span class="font-mono text-xs border border-gray-500 px-2 py-1 rounded">UI/UX</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 dark:text-white">Frontend</h3>
+                    <div class="space-y-3 font-mono text-sm">
+                        <div class="flex justify-between"><span>React.js</span><span class="text-neon-primary">90%</span></div>
+                        <div class="w-full bg-gray-700 h-1 rounded-full"><div class="bg-blue-500 h-1 rounded-full" style="width: 90%"></div></div>
+                        
+                        <div class="flex justify-between pt-2"><span>Tailwind</span><span class="text-neon-primary">95%</span></div>
+                        <div class="w-full bg-gray-700 h-1 rounded-full"><div class="bg-cyan-400 h-1 rounded-full" style="width: 95%"></div></div>
+
+                        <div class="flex justify-between pt-2"><span>GSAP/Three.js</span><span class="text-neon-primary">70%</span></div>
+                        <div class="w-full bg-gray-700 h-1 rounded-full"><div class="bg-purple-500 h-1 rounded-full" style="width: 70%"></div></div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="tech-card p-8 rounded-2xl group" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                    <div class="flex justify-between items-start mb-6">
+                        <i class="fas fa-server text-4xl text-green-500"></i>
+                        <span class="font-mono text-xs border border-gray-500 px-2 py-1 rounded">SERVER</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 dark:text-white">Backend</h3>
+                    <div class="space-y-3 font-mono text-sm">
+                        <div class="flex justify-between"><span>Node.js</span><span class="text-neon-primary">85%</span></div>
+                        <div class="w-full bg-gray-700 h-1 rounded-full"><div class="bg-green-500 h-1 rounded-full" style="width: 85%"></div></div>
+                        
+                        <div class="flex justify-between pt-2"><span>MongoDB</span><span class="text-neon-primary">80%</span></div>
+                        <div class="w-full bg-gray-700 h-1 rounded-full"><div class="bg-green-400 h-1 rounded-full" style="width: 80%"></div></div>
+
+                        <div class="flex justify-between pt-2"><span>Firebase</span><span class="text-neon-primary">75%</span></div>
+                        <div class="w-full bg-gray-700 h-1 rounded-full"><div class="bg-yellow-500 h-1 rounded-full" style="width: 75%"></div></div>
+                    </div>
+                </div>
+
+                <!-- AI & Tools -->
+                <div class="tech-card p-8 rounded-2xl group" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                    <div class="flex justify-between items-start mb-6">
+                        <i class="fas fa-brain text-4xl text-purple-500"></i>
+                        <span class="font-mono text-xs border border-gray-500 px-2 py-1 rounded">INTELLIGENCE</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 dark:text-white">AI & Tools</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm font-mono rounded border border-gray-700">Python</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm font-mono rounded border border-gray-700">TensorFlow</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm font-mono rounded border border-gray-700">Git/GitHub</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm font-mono rounded border border-gray-700">Postman</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm font-mono rounded border border-gray-700">Figma</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 dark:bg-black/30 bg-gray-100/50 backdrop-blur-sm relative z-10">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="mb-16 text-right">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 dark:text-white text-gray-900 hacker-text" data-value="EXPERIENCE_LOGS">EXPERIENCE_LOGS</h2>
+                <div class="h-1 w-20 bg-neon-primary ml-auto"></div>
+            </div>
+
+            <div class="relative space-y-12">
+                <!-- Vertical Line -->
+                <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gray-700 transform md:-translate-x-1/2"></div>
+
+                <!-- Exp 1 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="w-full md:w-5/12 order-2 md:order-1 p-6 tech-card rounded-xl hover:border-neon-primary transition-colors text-right md:text-right">
+                        <h3 class="text-xl font-bold dark:text-white">Frontend Developer Intern</h3>
+                        <p class="text-neon-primary font-mono text-sm">Infotach Solutions | 2025</p>
+                        <p class="text-gray-400 text-sm mt-2">Optimized Blue Serve Connection Platform. Delivered pixel-perfect UI and enhanced cross-browser compatibility.</p>
+                    </div>
+                    <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-neon-primary rounded-full transform -translate-x-1/2 md:-translate-x-1/2 z-10 shadow-[0_0_10px_#00ff9d]"></div>
+                    <div class="w-full md:w-5/12 order-1 md:order-2"></div>
+                </div>
+
+                <!-- Exp 2 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="w-full md:w-5/12 order-1 md:order-1"></div>
+                    <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-blue-500 rounded-full transform -translate-x-1/2 md:-translate-x-1/2 z-10 shadow-[0_0_10px_#3b82f6]"></div>
+                    <div class="w-full md:w-5/12 order-2 md:order-2 p-6 tech-card rounded-xl hover:border-blue-500 transition-colors">
+                        <h3 class="text-xl font-bold dark:text-white">Web Dev Intern</h3>
+                        <p class="text-blue-400 font-mono text-sm">IBM | 2025</p>
+                        <p class="text-gray-400 text-sm mt-2">Built Medical Store Management System. Implemented dynamic search, inventory tracking, and responsive dashboards.</p>
+                    </div>
+                </div>
+
+                <!-- Exp 3 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="w-full md:w-5/12 order-2 md:order-1 p-6 tech-card rounded-xl hover:border-purple-500 transition-colors text-right md:text-right">
+                        <h3 class="text-xl font-bold dark:text-white">AI/ML Intern</h3>
+                        <p class="text-purple-400 font-mono text-sm">IBM Internship | 2024</p>
+                        <p class="text-gray-400 text-sm mt-2">Developed predictive analytics models and chatbots using Python & ML frameworks.</p>
+                    </div>
+                    <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-purple-500 rounded-full transform -translate-x-1/2 md:-translate-x-1/2 z-10 shadow-[0_0_10px_#a855f7]"></div>
+                    <div class="w-full md:w-5/12 order-1 md:order-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 dark:text-white text-gray-900 hacker-text" data-value="DEPLOYED_SYSTEMS">DEPLOYED_SYSTEMS</h2>
+                <div class="h-1 w-20 bg-neon-primary"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1 -->
+                <div class="tech-card rounded-xl overflow-hidden group cursor-none" data-tilt data-tilt-max="5">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                         <!-- PROJECT IMAGE 1: ticket-saathi.jpg -->
+                         <img src="images/ticket-saathi.jpg" alt="Ticket Saathi" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" onerror="this.src='https://placehold.co/600x400/1e1e1e/00ff9d?text=Ticket+System'">
+                         
+                         <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                         <div class="absolute bottom-0 left-0 w-full h-1 bg-neon-primary transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold dark:text-white">Ticket Saathi</h3>
+                            <div class="flex gap-2">
+                                <i class="fab fa-js text-gray-400"></i>
+                                <i class="fas fa-database text-gray-400"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-4">Full-stack museum ticketing platform with real-time filtering and secure auth.</p>
+                        <a href="#" class="text-neon-primary text-sm font-bold hover:underline">VIEW SOURCE -></a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="tech-card rounded-xl overflow-hidden group cursor-none" data-tilt data-tilt-max="5">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                         <!-- PROJECT IMAGE 2: redaction.jpg -->
+                         <img src="images/redaction.jpg" alt="Redaction Tool" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" onerror="this.src='https://placehold.co/600x400/1e1e1e/ff5f56?text=Cyber+Security'">
+                         
+                         <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                         <div class="absolute bottom-0 left-0 w-full h-1 bg-red-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold dark:text-white">Redaction Tool</h3>
+                            <div class="flex gap-2">
+                                <i class="fab fa-python text-gray-400"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-4">Cybersecurity tool for automated sensitive data redaction using NLP & Regex.</p>
+                        <a href="#" class="text-red-500 text-sm font-bold hover:underline">VIEW SOURCE -></a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="tech-card rounded-xl overflow-hidden group cursor-none" data-tilt data-tilt-max="5">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                         <!-- PROJECT IMAGE 3: mindful.jpg -->
+                         <img src="images/mindful.jpg" alt="Mindful AI" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" onerror="this.src='https://placehold.co/600x400/1e1e1e/bd00ff?text=AI+Wellness'">
+                         
+                         <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                         <div class="absolute bottom-0 left-0 w-full h-1 bg-purple-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold dark:text-white">Mindful AI</h3>
+                            <div class="flex gap-2">
+                                <i class="fas fa-robot text-gray-400"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-4">Wellness app with AI-driven personalization and calming UI interface.</p>
+                        <a href="#" class="text-purple-500 text-sm font-bold hover:underline">VIEW SOURCE -></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center border-t border-gray-800 dark:bg-black bg-white relative z-10">
+        <p class="font-mono text-xs text-gray-500">
+            INITIALIZED_BY: Mayank Nagar © 2025
+        </p>
+    </footer>
+
+    <!-- Javascript Logic -->
+    <script>
+        // --- CANVAS PARTICLE SYSTEM (The "Technical" Background) ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+        
+        // Set canvas size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        // Mouse interaction
+        const mouse = { x: null, y: null, radius: 150 };
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                // Check theme for color
+                const isDark = document.documentElement.classList.contains('dark');
+                ctx.fillStyle = isDark ? '#00ff9d' : '#2563eb';
+                ctx.fill();
+            }
+            update() {
+                // Boundary check
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+
+                // Mouse interaction
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx*dx + dy*dy);
+                
+                if (distance < mouse.radius + this.size) {
+                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 10;
+                    if (mouse.x > this.x && this.x > this.size * 10) this.x -= 10;
+                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 10;
+                    if (mouse.y > this.y && this.y > this.size * 10) this.y -= 10;
+                }
+
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 1) - 0.5;
+                let directionY = (Math.random() * 1) - 0.5;
+                let color = '#00ff9d';
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        function connect() {
+            let opacityValue = 1;
+            const isDark = document.documentElement.classList.contains('dark');
+            const color = isDark ? '0, 255, 157' : '37, 99, 235'; // RGB values
+
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
+                    + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        opacityValue = 1 - (distance / 20000);
+                        ctx.strokeStyle = 'rgba(' + color + ',' + opacityValue + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Initialize Canvas
+        initParticles();
+        animateParticles();
+
+
+        // --- HACKER TEXT EFFECT ---
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&";
+        document.querySelectorAll(".hacker-text").forEach(target => {
+            target.onmouseover = event => {
+                let iteration = 0;
+                const originalText = event.target.dataset.value;
+                
+                clearInterval(event.target.interval);
+                
+                event.target.interval = setInterval(() => {
+                    event.target.innerText = originalText
+                        .split("")
+                        .map((letter, index) => {
+                            if (index < iteration) return originalText[index];
+                            return letters[Math.floor(Math.random() * 26)];
+                        })
+                        .join("");
+                    
+                    if (iteration >= originalText.length) {
+                        clearInterval(event.target.interval);
+                    }
+                    
+                    iteration += 1 / 3;
+                }, 30);
+            };
+        });
+
+        // --- CUSTOM CURSOR LOGIC ---
+        const cursorOuter = document.querySelector('.cursor-outer');
+        const cursorInner = document.querySelector('.cursor-inner');
+        
+        window.addEventListener('mousemove', (e) => {
+            cursorInner.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+            
+            // Slight delay for outer ring
+            cursorOuter.animate({
+                transform: `translate3d(${e.clientX}px, ${e.clientY}px, 0)`
+            }, { duration: 800, fill: "forwards" });
+        });
+
+        // Magnetic Buttons
+        const magneticTriggers = document.querySelectorAll('.magnetic-trigger');
+        magneticTriggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', () => {
+                document.body.classList.add('hovering');
+            });
+            trigger.addEventListener('mouseleave', () => {
+                document.body.classList.remove('hovering');
+                trigger.style.transform = '';
+            });
+            trigger.addEventListener('mousemove', (e) => {
+                const rect = trigger.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                trigger.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+            });
+        });
+
+
+        // --- TILT.JS IMPLEMENTATION (Vanilla) ---
+        const tiltCards = document.querySelectorAll('[data-tilt]');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -10; // Max tilt 10deg
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
+        });
+
+        // --- TYPING EFFECT (Main) ---
+        const textElement = document.getElementById('typing-text');
+        const phrases = ['FULL_STACK_DEVELOPER', 'AI_ENGINEER', 'CYBER_SECURITY_ENTHUSIAST'];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                setTimeout(type, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, isDeleting ? 50 : 100);
+            }
+        }
+        setTimeout(type, 1000);
+
+        // --- DARK MODE TOGGLE ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        
+        // Default to Dark Mode for this techie look
+        if (localStorage.getItem('color-theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+            lightIcon.classList.add('opacity-0');
+            darkIcon.classList.remove('opacity-0');
+        } else {
+            document.documentElement.classList.add('dark');
+            lightIcon.classList.remove('opacity-0');
+            darkIcon.classList.add('opacity-0');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            darkIcon.classList.toggle('opacity-0');
+            lightIcon.classList.toggle('opacity-0');
+
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>
