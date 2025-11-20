@@ -36,8 +36,8 @@
                             card: 'rgba(20, 20, 20, 0.7)'
                         }
                     },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
                     }
                 }
             }
@@ -85,9 +85,26 @@
         
         .magnetic-btn { transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         
-        /* Image Styles */
-        .profile-hex {
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        /* Profile Image Glow */
+        .profile-container {
+            position: relative;
+        }
+        .profile-container::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(45deg, #00ff9d, #00b8ff, #bd00ff, #00ff9d);
+            border-radius: 50%;
+            z-index: -1;
+            background-size: 400%;
+            animation: spin-glow 10s linear infinite;
+            filter: blur(8px);
+            opacity: 0.8;
+        }
+        @keyframes spin-glow {
+            0% { background-position: 0% 50%; transform: rotate(0deg); }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -139,14 +156,16 @@
                     <span class="w-2 h-2 rounded-full bg-current animate-pulse"></span> System Online
                 </div>
                 
-                <div class="flex items-center gap-6">
-                    <!-- Profile Image Placeholder -->
-                    <div class="w-24 h-24 md:w-32 md:h-32 flex-shrink-0 relative profile-hex overflow-hidden border-2 border-neon-primary hidden md:block">
-                         <img src="mayank.png" alt="Mayank" class="w-full h-full object-cover" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=Mayank'">
-                         <div class="absolute inset-0 bg-neon-primary/20 mix-blend-overlay"></div>
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                    <!-- Profile Image with Glow -->
+                    <div class="profile-container w-32 h-32 md:w-40 md:h-40 flex-shrink-0 group magnetic-trigger">
+                        <div class="w-full h-full rounded-full overflow-hidden border-2 border-white/20 bg-gray-900 relative z-10">
+                            <!-- Use the uploaded filename here -->
+                             <img src="mayank.jpg" alt="Mayank Nagar" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=Mayank'">
+                        </div>
                     </div>
 
-                    <div>
+                    <div class="text-center md:text-left">
                         <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
                             MAYANK<br>
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-neon-primary dark:to-emerald-400 hacker-text" data-value="NAGAR">NAGAR</span>
@@ -160,11 +179,11 @@
                     </div>
                 </div>
                 
-                <p class="text-lg dark:text-gray-400 text-gray-600 max-w-lg leading-relaxed">
+                <p class="text-lg dark:text-gray-400 text-gray-600 max-w-lg leading-relaxed text-center md:text-left">
                     Engineering scalable web solutions with MERN stack and Artificial Intelligence. Focused on performance, security, and intuitive UX.
                 </p>
                 
-                <div class="flex flex-wrap gap-4 pt-6">
+                <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-6">
                     <!-- Download Resume Button -->
                     <a href="resume.pdf" download="Mayank_Nagar_Resume.pdf" class="magnetic-trigger relative px-8 py-3 rounded bg-gray-900 dark:bg-neon-primary text-white dark:text-black font-bold overflow-hidden group flex items-center gap-2">
                         <i class="fas fa-download"></i>
@@ -177,7 +196,7 @@
                     </a>
                 </div>
 
-                <div class="flex gap-6 pt-6 text-2xl">
+                <div class="flex justify-center md:justify-start gap-6 pt-6 text-2xl">
                     <a href="https://github.com/mayank-nagar-04" target="_blank" class="magnetic-trigger hover:text-neon-primary transition-colors"><i class="fab fa-github"></i></a>
                     <a href="https://linkedin.com/in/mayanknagarr" target="_blank" class="magnetic-trigger hover:text-blue-500 transition-colors"><i class="fab fa-linkedin"></i></a>
                     <a href="mailto:mayanknagar6376@gmail.com" class="magnetic-trigger hover:text-red-500 transition-colors"><i class="fas fa-envelope"></i></a>
