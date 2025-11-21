@@ -234,7 +234,8 @@
                         </div>
                         <div class="pt-4 text-xs text-gray-400">
                             > Status: <span class="text-neon-primary">Ready for Hire</span><br>
-                            > Location: <span class="text-yellow-400">Kota, Rajasthan</span><br>
+                            <!-- Changed Location to Cyan to be distinct -->
+                            > Location: <span class="text-cyan-400">Kota, Rajasthan</span><br>
                             > CGPA: <span class="text-white">7.7</span>
                         </div>
                         <div class="absolute bottom-4 left-6 w-full">
@@ -247,7 +248,7 @@
         </div>
     </section>
 
-    <!-- About Section (NEW) -->
+    <!-- About Section -->
     <section id="about" class="py-20 relative z-10 dark:bg-black/20 bg-gray-50/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-16 text-center md:text-left">
@@ -263,7 +264,8 @@
                             <i class="fas fa-user-astronaut text-neon-primary"></i> Profile
                         </h3>
                         <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                            I am a <span class="text-neon-primary font-mono">Full Stack Developer</span> and final-year Computer Science Engineer. Currently serving as the <span class="text-neon-primary font-mono">Multimedia Head of the Cyber Security Club</span> at Government Engineering College, Ajmer. I bridge the gap between complex backend logic and intuitive frontend design.
+                            <!-- Changed back to Yellow -->
+                            I am a <span class="text-neon-primary font-mono">Full Stack Developer</span> and final-year Computer Science Engineer. Currently serving as the <span class="text-yellow-400 font-mono">Multimedia Head of the Cyber Security Club</span> at Government Engineering College, Ajmer. I bridge the gap between complex backend logic and intuitive frontend design.
                         </p>
                         
                         <div class="space-y-3 font-mono text-sm">
@@ -475,20 +477,23 @@
                 <div class="tech-card rounded-xl overflow-hidden group cursor-pointer md:cursor-none" data-tilt data-tilt-max="5">
                     <div class="h-48 bg-gray-800 relative overflow-hidden">
                          <!-- PROJECT IMAGE 2: redaction.jpg -->
-                         <img src="images/redaction.jpg" alt="Redaction Tool" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" onerror="this.src='https://placehold.co/600x400/1e1e1e/ff5f56?text=Cyber+Security'">
+                         <!-- Changed fallback text color to Yellow hex #eab308 -->
+                         <img src="images/redaction.jpg" alt="Redaction Tool" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" onerror="this.src='https://placehold.co/600x400/1e1e1e/eab308?text=Cyber+Security'">
                          
                          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                         <!-- Changed bottom bar to Yellow -->
                          <div class="absolute bottom-0 left-0 w-full h-1 bg-yellow-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
                     </div>
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-2">
                             <h3 class="text-xl font-bold dark:text-white">Redaction Tool</h3>
                             <div class="flex gap-2">
-                                <i class="fab fa-python text-gray-400"></i>
+                                <!-- Changed icon to Yellow -->
+                                <i class="fab fa-python text-yellow-500"></i>
                             </div>
                         </div>
                         <p class="text-sm text-gray-400 mb-4">Cybersecurity tool for automated sensitive data redaction using NLP & Regex.</p>
-                        <!-- Changed Color to Yellow as requested -->
+                        <!-- Changed link to Yellow -->
                         <a href="#" class="text-yellow-500 text-sm font-bold hover:underline">VIEW SOURCE -></a>
                     </div>
                 </div>
@@ -514,9 +519,240 @@
                     </div>
                 </div>
 
+                 <!-- Project 4: BlueServe -->
+                 <div class="tech-card rounded-xl overflow-hidden group cursor-pointer md:cursor-none" data-tilt data-tilt-max="5">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                         <!-- PROJECT IMAGE 4: blueserve.jpg -->
+                         <!-- Fallback to a blue gradient tool background if image is missing -->
+                         <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-900 to-black">
+                             <i class="fas fa-tools text-6xl text-white opacity-20 group-hover:opacity-40 transition-opacity"></i>
+                         </div>
+                         <img src="images/blueserve.jpg" alt="BlueServe" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" onerror="this.style.display='none'">
+                         
+                         <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                         <div class="absolute bottom-0 left-0 w-full h-1 bg-blue-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold dark:text-white">BlueServe</h3>
+                            <div class="flex gap-2">
+                                <i class="fas fa-hammer text-blue-500"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-4">Intelligent household-service platform. Connects users with verified local professionals for plumbing, electrical, and carpentry.</p>
+                        <a href="#" class="text-blue-500 text-sm font-bold hover:underline">VIEW PROJECT -></a>
+                    </div>
+                </div>
+
+                 <!-- Project 5 (Placeholder) -->
+                 <div class="tech-card rounded-xl overflow-hidden group cursor-pointer md:cursor-none border-dashed border-2 border-gray-700 opacity-70 hover:opacity-100 transition-opacity" data-tilt data-tilt-max="5">
+                    <div class="h-48 bg-gray-800/50 relative overflow-hidden flex items-center justify-center">
+                         <i class="fas fa-layer-group text-4xl text-gray-600"></i>
+                         <img src="images/project-5.jpg" alt="Upcoming Project" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-80 transition-opacity" onerror="this.style.display='none'">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold dark:text-white">Project Name</h3>
+                            <div class="flex gap-2">
+                                <i class="fas fa-cubes text-gray-400"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-4">Details coming soon. This project is currently under development.</p>
+                        <a href="#" class="text-gray-500 text-sm font-bold hover:text-white transition-colors">COMING SOON -></a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="py-20 dark:bg-black/30 bg-gray-100/50 backdrop-blur-sm relative z-10">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="mb-16 text-center md:text-right">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 dark:text-white text-gray-900 hacker-text" data-value="ACHIEVEMENTS_&_HONORS">ACHIEVEMENTS_&_HONORS</h2>
+                <div class="h-1 w-20 bg-neon-primary mx-auto md:ml-auto md:mr-0"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- NEW: Dual Media Spotlight Box -->
+                <div class="tech-card p-0 rounded-xl col-span-1 md:col-span-2 relative overflow-hidden group border-l-4 border-neon-primary grid grid-cols-1 md:grid-cols-2">
+                    
+                    <!-- Media Spotlight Badge -->
+                    <div class="absolute top-0 left-0 z-30 bg-neon-primary text-black text-xs font-bold px-3 py-1 rounded-br-lg uppercase tracking-wider shadow-lg flex items-center gap-2">
+                        <i class="far fa-newspaper"></i> Media Spotlight
+                    </div>
+
+                    <!-- Clipping 1: HackTech -->
+                    <div class="relative h-64 md:h-auto cursor-pointer group/item border-b md:border-b-0 md:border-r border-gray-700" onclick="openModal('images/news-hacktech.jpg')">
+                        <!-- Background Image -->
+                        <div class="absolute inset-0">
+                            <img src="images/news-hacktech.jpg" alt="HackTech News" class="w-full h-full object-cover opacity-40 group-hover/item:opacity-60 transition-all duration-500" onerror="this.src='https://placehold.co/400x400/1e1e1e/00ff9d?text=HackTech+News'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                        </div>
+                        <!-- Content -->
+                        <div class="relative z-10 h-full flex flex-col justify-end p-6 pt-12">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-neon-primary text-xs font-bold uppercase tracking-wider border border-neon-primary px-2 py-0.5 rounded">HackTech 2k25</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white leading-tight font-serif mb-2">
+                                "Innovation Wins at Thapar Institute"
+                            </h3>
+                            <div class="flex items-center text-neon-primary text-xs font-bold gap-2">
+                                <span><i class="fas fa-expand mr-1"></i> View Clipping</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Clipping 2: CodeFiesta -->
+                    <div class="relative h-64 md:h-auto cursor-pointer group/item" onclick="openModal('images/news-codefiesta.jpg')">
+                        <!-- Background Image -->
+                        <div class="absolute inset-0">
+                            <img src="images/news-codefiesta.jpg" alt="CodeFiesta News" class="w-full h-full object-cover opacity-40 group-hover/item:opacity-60 transition-all duration-500" onerror="this.src='https://placehold.co/400x400/1e1e1e/bd00ff?text=CodeFiesta+News'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                        </div>
+                        <!-- Content -->
+                        <div class="relative z-10 h-full flex flex-col justify-end p-6 pt-12">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-purple-400 text-xs font-bold uppercase tracking-wider border border-purple-400 px-2 py-0.5 rounded">CodeFiesta</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white leading-tight font-serif mb-2">
+                                "GIT Jaipur: Coding Runner-up"
+                            </h3>
+                            <div class="flex items-center text-purple-400 text-xs font-bold gap-2">
+                                <span><i class="fas fa-expand mr-1"></i> View Clipping</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Achievement 1 -->
+                <div class="tech-card p-6 rounded-xl flex items-start gap-4 group hover:-translate-y-1 transition-transform">
+                    <div class="w-16 h-16 rounded-lg bg-gray-800 flex-shrink-0 overflow-hidden border border-gray-700 cursor-pointer relative" onclick="openModal('images/cert-hacktech.jpg')">
+                        <img src="images/hacktech.jpg" alt="HackTech" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='https://placehold.co/100x100/333/00ff9d?text=Win'">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-expand text-white text-xs"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold dark:text-white text-lg group-hover:text-neon-primary transition-colors">3rd Place - HackTech 2025</h3>
+                        <p class="text-sm text-gray-400 mb-1">Thapar Institute</p>
+                        <span class="text-xs font-mono text-neon-primary bg-neon-primary/10 px-2 py-0.5 rounded">Hackathon</span>
+                        <button onclick="openModal('images/cert-hacktech.jpg')" class="block mt-2 text-xs text-neon-primary hover:underline flex items-center gap-1">
+                            <i class="fas fa-certificate"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Achievement 2 -->
+                <div class="tech-card p-6 rounded-xl flex items-start gap-4 group hover:-translate-y-1 transition-transform">
+                    <div class="w-16 h-16 rounded-lg bg-gray-800 flex-shrink-0 overflow-hidden border border-gray-700 cursor-pointer relative" onclick="openModal('images/cert-gainsmart.jpg')">
+                        <img src="images/gainsmart.jpg" alt="Gainsmart" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='https://placehold.co/100x100/333/3b82f6?text=Win'">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-expand text-white text-xs"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold dark:text-white text-lg group-hover:text-blue-400 transition-colors">2nd Place - Gainsmart</h3>
+                        <p class="text-sm text-gray-400 mb-1">Skill Hackathon</p>
+                        <span class="text-xs font-mono text-blue-400 bg-blue-400/10 px-2 py-0.5 rounded">Hackathon</span>
+                        <button onclick="openModal('images/cert-gainsmart.jpg')" class="block mt-2 text-xs text-blue-400 hover:underline flex items-center gap-1">
+                            <i class="fas fa-certificate"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Achievement 3 -->
+                <div class="tech-card p-6 rounded-xl flex items-start gap-4 group hover:-translate-y-1 transition-transform">
+                    <div class="w-16 h-16 rounded-lg bg-gray-800 flex-shrink-0 overflow-hidden border border-gray-700 cursor-pointer relative" onclick="openModal('images/cert-codefiesta.jpg')">
+                        <img src="images/codefiesta.jpg" alt="CodeFiesta" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='https://placehold.co/100x100/333/bd00ff?text=Win'">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-expand text-white text-xs"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold dark:text-white text-lg group-hover:text-purple-400 transition-colors">Runner-up CodeFiesta 3.0</h3>
+                        <p class="text-sm text-gray-400 mb-1">GIT Jaipur</p>
+                        <span class="text-xs font-mono text-purple-400 bg-purple-400/10 px-2 py-0.5 rounded">Coding</span>
+                        <button onclick="openModal('images/cert-codefiesta.jpg')" class="block mt-2 text-xs text-purple-400 hover:underline flex items-center gap-1">
+                            <i class="fas fa-certificate"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Achievement 4 -->
+                <div class="tech-card p-6 rounded-xl flex items-start gap-4 group hover:-translate-y-1 transition-transform">
+                    <div class="w-16 h-16 rounded-lg bg-gray-800 flex-shrink-0 overflow-hidden border border-gray-700 cursor-pointer relative" onclick="openModal('images/cert-ideathone.jpg')">
+                        <!-- Changed placeholder color to Pink hex #ec4899 -->
+                        <img src="images/ideathone.jpg" alt="Ideathone" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='https://placehold.co/100x100/333/ec4899?text=Finalist'">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-expand text-white text-xs"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <!-- Changed text to Pink -->
+                        <h3 class="font-bold dark:text-white text-lg group-hover:text-pink-500 transition-colors">Finalist - Ideathone '24</h3>
+                        <p class="text-sm text-gray-400 mb-1">St. Xavier's College</p>
+                        <span class="text-xs font-mono text-pink-500 bg-pink-500/10 px-2 py-0.5 rounded">Innovation</span>
+                        <button onclick="openModal('images/cert-ideathone.jpg')" class="block mt-2 text-xs text-pink-500 hover:underline flex items-center gap-1">
+                            <i class="fas fa-certificate"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Achievement 5 -->
+                <div class="tech-card p-6 rounded-xl flex items-start gap-4 group hover:-translate-y-1 transition-transform">
+                    <div class="w-16 h-16 rounded-lg bg-gray-800 flex-shrink-0 overflow-hidden border border-gray-700 cursor-pointer relative" onclick="openModal('images/cert-hackathon01.jpg')">
+                        <!-- Changed placeholder color to orange hex -->
+                        <img src="images/hackathon01.jpg" alt="0 to 1 Hackathon" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='https://placehold.co/100x100/333/f97316?text=Finalist'">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-expand text-white text-xs"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <!-- Changed text to Orange -->
+                        <h3 class="font-bold dark:text-white text-lg group-hover:text-orange-500 transition-colors">Finalist 0 to 1 Hackathon</h3>
+                        <p class="text-sm text-gray-400 mb-1">IIIT Delhi</p>
+                        <span class="text-xs font-mono text-orange-500 bg-orange-500/10 px-2 py-0.5 rounded">Hackathon</span>
+                        <button onclick="openModal('images/cert-hackathon01.jpg')" class="block mt-2 text-xs text-orange-500 hover:underline flex items-center gap-1">
+                            <i class="fas fa-certificate"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Achievement 6 -->
+                <div class="tech-card p-6 rounded-xl flex items-start gap-4 group hover:-translate-y-1 transition-transform">
+                    <div class="w-16 h-16 rounded-lg bg-gray-800 flex-shrink-0 overflow-hidden border border-gray-700 cursor-pointer relative" onclick="openModal('images/cert-qiskit.jpg')">
+                        <img src="images/qiskit.jpg" alt="Qiskit Fall Fest" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='https://placehold.co/100x100/333/60a5fa?text=Cert'">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-expand text-white text-xs"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold dark:text-white text-lg group-hover:text-blue-300 transition-colors">Qiskit Fall Fest 2023</h3>
+                        <p class="text-sm text-gray-400 mb-1">Quantum Computing</p>
+                        <span class="text-xs font-mono text-blue-300 bg-blue-300/10 px-2 py-0.5 rounded">Completion</span>
+                        <button onclick="openModal('images/cert-qiskit.jpg')" class="block mt-2 text-xs text-blue-300 hover:underline flex items-center gap-1">
+                            <i class="fas fa-certificate"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate Modal -->
+    <div id="cert-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 backdrop-blur-sm p-4" onclick="closeModal()">
+        <div class="relative max-w-4xl w-full max-h-screen flex flex-col items-center">
+            <button class="absolute -top-12 right-0 text-white text-3xl hover:text-neon-primary transition-colors" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="cert-image" src="" alt="Certificate" class="max-w-full max-h-[85vh] rounded-lg shadow-2xl border border-gray-700" onclick="event.stopPropagation()">
+            <p class="text-gray-400 mt-4 text-sm font-mono">Click outside to close</p>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="py-8 text-center border-t border-gray-800 dark:bg-black bg-white relative z-10">
@@ -750,7 +986,7 @@
 
         // --- TYPING EFFECT (Main) ---
         const textElement = document.getElementById('typing-text');
-        const phrases = ['FULL_STACK_DEVELOPER', 'AI_ENGINEER', 'CYBER_SECURITY_ENTHUSIAST'];
+        const phrases = ['FULL_STACK_DEVELOPER', 'WEB_DEVELOPER', 'SOFTWARE_ENGINEER'];
         let phraseIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
@@ -804,6 +1040,32 @@
             } else {
                 document.documentElement.classList.add('dark');
                 localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        // --- MODAL LOGIC ---
+        const modal = document.getElementById('cert-modal');
+        const modalImg = document.getElementById('cert-image');
+
+        function openModal(imageSrc) {
+            modalImg.src = imageSrc;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            // Disable scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            // Enable scroll
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModal();
             }
         });
     </script>
